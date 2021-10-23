@@ -1,11 +1,22 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
-import products from "../products";
+// import products from "../products";
 import Rating from "../components/Rating";
+import axios from "axios";
 
 const ProductScreen = ({ match }) => {
+  const [product, setProduct] = useState({});
+
   // Return the object whose id matches the one we've clicked on
-  const product = products.find(product => product._id === match.params.id)
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get(`/api/products/${match.params.id}`);
+    setProduct(data);
+    }
+    fetchProduct()
+  }, [])
+
   return ( 
     <div>
       <Link to="/" className="btn btn-light my-3">Go Back</Link>
@@ -56,7 +67,7 @@ const ProductScreen = ({ match }) => {
                 <Button 
                   disabled={product.countInStock < 1}
                   className="w-100"
-                  block
+                  // block
                 >
                   Add to cart
                 </Button>
