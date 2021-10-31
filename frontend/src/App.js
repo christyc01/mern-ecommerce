@@ -11,7 +11,6 @@ function App() {
       <Header />
       <main>
         <Container className="py-3">
-          <h1>E-commerce Site?</h1>
           <Route path="/" component={HomeScreen} exact />
           <Route path="/product/:id" component={ProductScreen} />
 
